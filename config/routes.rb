@@ -1,4 +1,21 @@
 Qs::Application.routes.draw do
+  
+  resource :session do
+    collection do
+      get 'callback'
+    end
+  end
+  
+  resources :examples do
+    collection do
+      get 'user'
+      get 'checkins'
+      get 'friends'
+      get 'venues_search'
+      get 'venue_details'
+    end
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +65,7 @@ Qs::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => "welcome#index"
+  root :to => "sessions#new"
 
   # See how all your routes lay out with "rake routes"
 

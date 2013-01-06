@@ -44,6 +44,7 @@ GEM
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.1.6)
     erubis (2.7.0)
+    haml (3.1.7)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -86,6 +87,7 @@ GEM
     rake (10.0.3)
     rdoc (3.12)
       json (~> 1.4)
+    settingslogic (2.0.6)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -113,10 +115,12 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   debugger
+  haml
   json
   pg
   quimby
   rails (= 3.2.10)
+  settingslogic
   sqlite3
   typhoeus (= 0.2.2)
   unicorn

@@ -9,6 +9,8 @@ gem 'rails', '3.2.10'
 
 gem 'unicorn'
 
+gem 'haml'
+gem "settingslogic"
 gem 'json'
 gem 'typhoeus', '0.2.2'
 gem 'quimby' #foursquare: https://github.com/locationstar/quimby
