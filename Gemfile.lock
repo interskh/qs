@@ -57,6 +57,9 @@ GEM
     multi_json (1.5.0)
     pg (0.14.1)
     polyglot (0.3.3)
+    quimby (0.4.5)
+      json
+      typhoeus
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -94,6 +97,9 @@ GEM
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
+    typhoeus (0.2.2)
+      mime-types
+      mime-types
     tzinfo (0.3.35)
     unicorn (4.5.0)
       kgio (~> 2.6)
@@ -107,7 +113,10 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   debugger
+  json
   pg
+  quimby
   rails (= 3.2.10)
   sqlite3
+  typhoeus (= 0.2.2)
   unicorn

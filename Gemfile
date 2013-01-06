@@ -1,11 +1,17 @@
 source 'http://rubygems.org'
 
+ruby "1.9.3"
+
 gem 'rails', '3.2.10'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'unicorn'
+
+gem 'json'
+gem 'typhoeus', '0.2.2'
+gem 'quimby' #foursquare: https://github.com/locationstar/quimby
 
 # Deploy with Capistrano
 # gem 'capistrano'
