@@ -1,8 +1,10 @@
+.bundle
+db/*.sqlite3
+log/*.log
+tmp/**/*
+config/database.yml
+
 *.swp
 *.un~
-
 .DS_Store
-
-db/*.sqlite3
-config/database.yml
 
