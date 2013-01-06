@@ -13,7 +13,9 @@ gem 'haml'
 gem "settingslogic"
 gem 'json'
 gem 'typhoeus', '0.2.2'
-gem 'quimby' #foursquare: https://github.com/locationstar/quimby
+
+# foursquare
+gem 'quimby', :git => 'git@github.com:interskh/quimby.git'
 
 # Deploy with Capistrano
 # gem 'capistrano'
