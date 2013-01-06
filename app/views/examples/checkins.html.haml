@@ -1,8 +1,8 @@
-= sitemap "#{current_user.name}'s Recent Checkins"
+= sitemap "#{current_user.name}'s All Checkins"
 
 = see_more("https://developer.foursquare.com/docs/explore.html#req=users/self/checkins")
 
-- current_user.checkins.each do |checkin|
+- current_user.all_checkins.each do |checkin|
   .checkin
     .venue
       .icon
