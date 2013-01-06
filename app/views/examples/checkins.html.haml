@@ -2,11 +2,11 @@
 
 = see_more("https://developer.foursquare.com/docs/explore.html#req=users/self/checkins")
 
-- current_user.all_checkins.each do |checkin|
+- @checkins.each do |checkin|
   .checkin
     .venue
       .icon
-        = image_tag(checkin.venue.icon) if checkin.venue
+        = image_tag(checkin.venue.icon.url) if checkin.venue
       .content
         .name= "@ #{checkin.venue.name}" if checkin.venue
         .shout= checkin.shout

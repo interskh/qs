@@ -11,6 +11,8 @@ class ExamplesController < ApplicationController
   end
   
   def checkins
+    @checkins = current_user.checkins
+    @categories = foursquare.venues.categories
   end
   
   def friends
