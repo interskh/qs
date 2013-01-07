@@ -11,8 +11,36 @@ class ExamplesController < ApplicationController
   end
   
   def checkins
-    @checkins = current_user.checkins
-    @categories = foursquare.venues.categories
+    checkins = current_user.all_checkins
+
+    categories = foursquare.venues.categories
+    category_parents = Hash.new
+    category_tops = Hash.new
+    categories.each do |c|
+      category_tops[c['name']] = c['name']
+      c['categories'].each do |cc|
+        category_parents[cc['name']] = c['name']
+        _category_parent_n_top(category_parents, category_tops, c['name'], cc)
+      end
+    end
+
+    category_data = Hash.new
+    checkins.each do |c|
+      if c.venue.nil? || c.venue.primary_category.nil?
+        top = "Unknown"
+      elsif category_tops[c.venue.primary_category.name].nil?
+        top = c.venue.primary_category.name
+      else
+        top = category_tops[c.venue.primary_category.name]
+      end
+      if category_data[top].nil?
+        category_data[top] = 1
+      else
+        category_data[top] += 1
+      end
+    end
+
+    @data = category_data.to_a
   end
   
   def friends
@@ -33,4 +61,14 @@ class ExamplesController < ApplicationController
     @venue = foursquare.venues.find(@venue_id)
   end
   
+  private
+  def _category_parent_n_top(parents, tops, top_c, c) 
+    tops[c['name']] = top_c
+    if c['categories'].present?
+      c['categories'].each do |child|
+          parents[child['name']] = c['name']
+          _category_parent_n_top(parents, tops, top_c, child)
+      end
+    end
+  end
 end

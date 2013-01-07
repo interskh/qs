@@ -1,14 +1,51 @@
+= javascript_include_tag 'jquery-1.8.3.min','rails','highcharts'
+
+:javascript
+  $(function() {
+    new Highcharts.Chart( {
+      chart: {
+        renderTo: "foursquare_chart",
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false
+      },
+      title: {
+        text: "Checkins by Category"
+      },
+      plotOptions: {
+          pie: {
+              allowPointSelect: true,
+              cursor: 'pointer',
+              dataLabels: {
+                  enabled: true,
+                  color: '#000000',
+                  connectorColor: '#000000',
+                  formatter: function() {
+                      return '<b>'+ this.point.name +'</b>'+ this.percentage.toFixed(1) +' %';
+                  }
+              }
+          }
+      },
+      series: [{
+          type: 'pie',
+          name: 'Browser share',
+          data: #{@data.to_json}
+      }]
+    });
+  });
+
 = sitemap "#{current_user.name}'s All Checkins"
 
-= see_more("https://developer.foursquare.com/docs/explore.html#req=users/self/checkins")
+#foursquare_chart
 
-- @checkins.each do |checkin|
-  .checkin
-    .venue
-      .icon
-        = image_tag(checkin.venue.icon.url) if checkin.venue
-      .content
-        .name= "@ #{checkin.venue.name}" if checkin.venue
-        .shout= checkin.shout
-        .time= time_ago_in_words(checkin.created_at)
-      /= checkin.inspect
+/= @category_parents.inspect
+
+/- @checkins.each do |checkin|
+/  .checkin
+/    .venue
+/      .icon
+/        = image_tag(checkin.venue.icon.url) if checkin.venue
+/      .content
+/        .name= "@ #{checkin.venue.name}" if checkin.venue
+/        .shout= checkin.shout
+/        .time= time_ago_in_words(checkin.created_at)
