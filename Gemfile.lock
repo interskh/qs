@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:interskh/quimby.git
+  remote: git://github.com/interskh/quimby.git
   revision: e68002de36aed98b915fc09fde5ef8b614f8d89c
   specs:
     quimby (0.5.5)
