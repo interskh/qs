@@ -1,8 +1,17 @@
 = javascript_include_tag 'jquery-1.8.3.min','rails','highcharts'
 
 :javascript
-  $(function() {
-    new Highcharts.Chart( {
+  var chart, chart1;
+  $(document).ready(function() {
+    drawFirstLevel();
+    $('#back a').click(function(){
+      chart1.destroy();
+      drawFirstLevel();                
+    });
+  });
+
+  function drawFirstLevel() {
+    chart = new Highcharts.Chart( {
       chart: {
         renderTo: "foursquare_pie",
         plotBackgroundColor: null,
@@ -23,6 +32,13 @@
               formatter: function() {
                   return '<b>'+ this.point.name +'</b>'+ this.percentage.toFixed(1) +' %';
               }
+          },
+          point: {
+            events: {
+              click: function() {
+                drawSecondLevel(this.name);
+              }
+            }
           }
         }
       },
@@ -32,11 +48,55 @@
         data: #{@pie_data.to_json}
       }]
     });
-  });
+  }
+
+  function drawSecondLevel() {
+    chart.destroy();
+    chart1 = new Highcharts.Chart( {
+      chart: {
+        renderTo: "foursquare_pie",
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false
+      },
+      title: {
+        text: "Checkins by Category"
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+              enabled: true,
+              color: '#000000',
+              connectorColor: '#000000',
+              formatter: function() {
+                  return '<b>'+ this.point.name +'</b>'+ this.percentage.toFixed(1) +' %';
+              }
+          },
+          point: {
+            events: {
+              click: function() {
+                drawSecondLevel(this.name);
+              }
+            }
+          }
+        }
+      },
+      series: [{
+        type: 'pie',
+        name: 'Browser share',
+        data: #{@pie_data.to_json}
+      }]
+    });
+  }
 
 = sitemap "#{current_user.name}'s All Checkins"
 
 #foursquare_pie
+
+#back
+  = link_to "Back", "#"
 
 /= @category_parents.inspect
 
