@@ -40,7 +40,7 @@ class ExamplesController < ApplicationController
       end
     end
 
-    @data = category_data.to_a
+    @pie_data = category_data.to_a
   end
   
   def friends

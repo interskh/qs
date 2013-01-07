@@ -4,7 +4,7 @@
   $(function() {
     new Highcharts.Chart( {
       chart: {
-        renderTo: "foursquare_chart",
+        renderTo: "foursquare_pie",
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false
@@ -13,30 +13,30 @@
         text: "Checkins by Category"
       },
       plotOptions: {
-          pie: {
-              allowPointSelect: true,
-              cursor: 'pointer',
-              dataLabels: {
-                  enabled: true,
-                  color: '#000000',
-                  connectorColor: '#000000',
-                  formatter: function() {
-                      return '<b>'+ this.point.name +'</b>'+ this.percentage.toFixed(1) +' %';
-                  }
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+              enabled: true,
+              color: '#000000',
+              connectorColor: '#000000',
+              formatter: function() {
+                  return '<b>'+ this.point.name +'</b>'+ this.percentage.toFixed(1) +' %';
               }
           }
+        }
       },
       series: [{
-          type: 'pie',
-          name: 'Browser share',
-          data: #{@data.to_json}
+        type: 'pie',
+        name: 'Browser share',
+        data: #{@pie_data.to_json}
       }]
     });
   });
 
 = sitemap "#{current_user.name}'s All Checkins"
 
-#foursquare_chart
+#foursquare_pie
 
 /= @category_parents.inspect
 
