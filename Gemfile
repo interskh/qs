@@ -15,7 +15,7 @@ gem 'json'
 gem 'typhoeus', '0.2.2'
 
 # foursquare
-gem 'quimby', :git => 'git@github.com:interskh/quimby.git'
+gem 'quimby', :git => 'git://github.com/interskh/quimby.git'
 
 # Deploy with Capistrano
 # gem 'capistrano'
