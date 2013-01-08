@@ -51,7 +51,8 @@
     });
   }
 
-  function drawSecondLevel() {
+  function drawSecondLevel(name) {
+    console.log(name);
     chart.destroy();
     chart1 = new Highcharts.Chart( {
       chart: {
@@ -61,7 +62,7 @@
         plotShadow: false
       },
       title: {
-        text: "Checkins by Category"
+        text: "Checkins by Category " + name
       },
       plotOptions: {
         pie: {
