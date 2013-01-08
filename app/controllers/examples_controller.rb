@@ -40,7 +40,8 @@ class ExamplesController < ApplicationController
       end
     end
 
-    @pie_data = category_data.to_a
+    @pie_data = Hash.new
+    @pie_data['all'] = category_data.to_a
   end
   
   def friends

@@ -2,6 +2,7 @@
 
 :javascript
   var chart, chart1;
+  var data = #{@pie_data.to_json}
   $(document).ready(function() {
     drawFirstLevel();
     $('#back a').click(function(){
@@ -45,7 +46,7 @@
       series: [{
         type: 'pie',
         name: 'Browser share',
-        data: #{@pie_data.to_json}
+        data: data['all']
       }]
     });
   }
