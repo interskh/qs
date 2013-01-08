@@ -25,23 +25,32 @@ class ExamplesController < ApplicationController
     end
 
     category_data = Hash.new
+    detailed_category_data = Hash.new
     checkins.each do |c|
       if c.venue.nil? || c.venue.primary_category.nil?
-        top = "Unknown"
+        top = category = "Unknown"
       elsif category_tops[c.venue.primary_category.name].nil?
-        top = c.venue.primary_category.name
+        top = category = c.venue.primary_category.name
       else
-        top = category_tops[c.venue.primary_category.name]
+        category = c.venue.primary_category.name
+        top = category_tops[category]
       end
       if category_data[top].nil?
         category_data[top] = 1
+        detailed_category_data[top] = Hash.new
       else
         category_data[top] += 1
+        if detailed_category_data[top][category].nil?
+          detailed_category_data[top][category] = 1
+        else
+          detailed_category_data[top][category] += 1
+        end
       end
     end
 
     @pie_data = Hash.new
     @pie_data['all'] = category_data.to_a
+    @pie_data['detailed'] = detailed_category_data.to_a
   end
   
   def friends
