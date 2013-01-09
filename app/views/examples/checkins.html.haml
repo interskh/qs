@@ -52,7 +52,6 @@
   }
 
   function drawSecondLevel(name) {
-    console.log(name);
     chart.destroy();
     chart1 = new Highcharts.Chart( {
       chart: {
@@ -75,20 +74,13 @@
               formatter: function() {
                   return '<b>'+ this.point.name +'</b>'+ this.percentage.toFixed(1) +' %';
               }
-          },
-          point: {
-            events: {
-              click: function() {
-                drawSecondLevel(this.name);
-              }
-            }
           }
         }
       },
       series: [{
         type: 'pie',
         name: 'Browser share',
-        data: #{@pie_data.to_json}
+        data: data['detailed'][name]
       }]
     });
   }

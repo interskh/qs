@@ -50,7 +50,10 @@ class ExamplesController < ApplicationController
 
     @pie_data = Hash.new
     @pie_data['all'] = category_data.to_a
-    @pie_data['detailed'] = detailed_category_data.to_a
+    @pie_data['detailed'] = Hash.new
+    detailed_category_data.each do |x,y|
+      @pie_data['detailed'][x] = y.to_a
+    end
   end
   
   def friends
