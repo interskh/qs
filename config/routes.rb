@@ -6,7 +6,7 @@ Qs::Application.routes.draw do
     end
   end
   
-  resources :examples do
+  resources :foursquare do
     collection do
       get 'user'
       get 'checkins'

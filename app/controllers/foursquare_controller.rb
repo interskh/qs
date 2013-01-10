@@ -1,4 +1,4 @@
-class ExamplesController < ApplicationController
+class FoursquareController < ApplicationController
   
   before_filter :require_user
   
