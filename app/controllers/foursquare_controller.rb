@@ -48,6 +48,11 @@ class FoursquareController < ApplicationController
       end
     end
 
+    category_data = category_data.sort_by {|k,v| -v}
+    detailed_category_data.each do |c, cc|
+      detailed_category_data[c] = cc.sort_by {|k,v| -v}
+    end
+
     @pie_data = Hash.new
     @pie_data['all'] = category_data.to_a
     @pie_data['detailed'] = Hash.new
