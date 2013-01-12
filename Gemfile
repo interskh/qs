@@ -19,6 +19,7 @@ gem 'quimby', :git => 'git://github.com/interskh/quimby.git'
 
 gem 'sass-rails', '~> 3.2'
 gem 'bootstrap-sass', '~> 2.2.1.1'
+gem 'uglifier'
 
 group :development do
   gem "better_errors"
