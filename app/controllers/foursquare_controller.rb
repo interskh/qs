@@ -4,7 +4,7 @@ class FoursquareController < ApplicationController
   
   def index
     # list all the examples
-    redirect_to :action => :checkins
+#    redirect_to :action => :checkins
     
   end
   

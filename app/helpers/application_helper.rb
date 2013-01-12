@@ -1,11 +1,11 @@
 module ApplicationHelper
   
   def sitemap(text)
-    "<h2>#{link_to('Foursquare', foursquare_index_path)} > #{text}</h2>".html_safe
-  end
-  
-  def see_more(link)
-    "<h4>#{link_to("See More at Foursquare Documentation", link)}</h4>".html_safe
+    "<ul class='breadcrumb'>
+      <li>#{link_to('Home', root_path)}<span class='divider'> | </span></li>
+      <li>#{link_to('Foursquare', foursquare_index_path)}<span class='divider'> | </span></li>
+      <li class='active'>#{text}</li>
+    </ul>".html_safe
   end
   
 end

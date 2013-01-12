@@ -7,6 +7,8 @@
     = stylesheet_link_tag 'application'
     
     #page
-      %h1#title
-        = link_to "Quantified Self", root_path
-      = yield
+      .navbar
+        .navbar-inner
+          = link_to "Quantified Self", root_path, :class=>"brand"
+      .container
+        = yield
