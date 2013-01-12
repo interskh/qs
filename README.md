@@ -1,4 +1,5 @@
-== Welcome to Quantified Self
+# Welcome to Quantified Self
+This is a project i create to analyze myself, as part of Quantified Self movement.
 
 # Getting Started
 
