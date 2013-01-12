@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-Qs::Application.config.secret_token = '732b0af4badf113de560cffe9bd2a852dc81f5d6f2c78ee55e4ead8f46efbd56f03c26562356bed1c143b1822581f72d34e709f7460677554ad8ce700e9d3916'
+Qs::Application.config.secret_token = '3a45fea1e8733363e8f0093f101caa4e8acfd900968f18036390de60550f053ed4f7f81f28d9ece9644a2acc53a48dda7a0373910489a8d5f381438b32650b83'
