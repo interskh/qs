@@ -11,6 +11,6 @@ Dev config is under config/initializers/dev_environment.rb
 
     # config/initializers/dev_environment.rb
     unless Rails.env.production?
-      ENV['FOURSQUARE_APP_ID'] = 'K20QNOKLAUBF0LSZI0U135ET4EFVZ3TFFHR4WQPXEKNU3WXP'
-      ENV['FOURSQUARE_APP_SECRET'] = '20ZAJXGVLJHE40WBWRFY3CNAN2BF1Z1RVD0DGLV4OLAIDOHQ'
+      ENV['FOURSQUARE_APP_ID'] = 'foursquare_app_id'
+      ENV['FOURSQUARE_APP_SECRET'] = 'foursquare_app_secret'
     end
