@@ -1,6 +1,8 @@
 # Welcome to Quantified Self
 This is a project i create to analyze myself, as part of Quantified Self movement.
 
+Demo Site: http://qs.bigkyle.com
+
 # Getting Started
 
 ## DB Config
