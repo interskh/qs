@@ -42,7 +42,7 @@ function drawFirstLevel() {
     series: [{
       type: 'pie',
       name: 'Browser share',
-      data: data['all']
+      data: data['category_all']
     }]
   });
 }
@@ -76,7 +76,7 @@ function drawSecondLevel(name) {
     series: [{
       type: 'pie',
       name: 'Browser share',
-      data: data['detailed'][name]
+      data: data['category_detailed'][name]
     }]
   });
 }
