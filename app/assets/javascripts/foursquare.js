@@ -1,14 +1,14 @@
-var chart, chart1;
+var chart00, chart01, chart10, chart11;
 $(document).ready(function() {
   drawFirstLevel();
   $('#back a').click(function(){
-    chart1.destroy();
+    chart10.destroy();
     drawFirstLevel();                
   });
 });
 
 function drawFirstLevel() {
-  chart = new Highcharts.Chart( {
+  chart00 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_pie",
       plotBackgroundColor: null,
@@ -48,8 +48,8 @@ function drawFirstLevel() {
 }
 
 function drawSecondLevel(name) {
-  chart.destroy();
-  chart1 = new Highcharts.Chart( {
+  chart00.destroy();
+  chart10 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_pie",
       plotBackgroundColor: null,
