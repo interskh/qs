@@ -25,8 +25,8 @@ class FoursquareController < ApplicationController
       end
     end
 
-    category_data = Hash.new
-    detailed_category_data = Hash.new
+    category_data = Hash.new(0)
+    detailed_category_data = Hash.new{|v,k| v[k] = Hash.new(0)}
     checkins.each do |c|
       if c.venue.nil? || c.venue.primary_category.nil?
         top = category = "Unknown"
@@ -36,17 +36,8 @@ class FoursquareController < ApplicationController
         category = c.venue.primary_category.name
         top = category_tops[category]
       end
-      if category_data[top].nil?
-        category_data[top] = 1
-        detailed_category_data[top] = Hash.new
-      else
-        category_data[top] += 1
-        if detailed_category_data[top][category].nil?
-          detailed_category_data[top][category] = 1
-        else
-          detailed_category_data[top][category] += 1
-        end
-      end
+      category_data[top] += 1
+      detailed_category_data[top][category] += 1
     end
 
     category_data = category_data.sort_by {|k,v| -v}
