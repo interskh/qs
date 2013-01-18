@@ -29,6 +29,24 @@ class FoursquareController < ApplicationController
     detailed_category_data = Hash.new{|v,k| v[k] = Hash.new(0)}
     data_by_week = Hash.new(0)
     category_data_by_week = Hash.new{|v,k| v[k] = Hash.new(0)}
+
+    week_columns = Array.new
+    last_time = checkins.first.created_at + 7*24*60*60
+    time = checkins.last.created_at
+    while (time <=> last_time) == -1 do
+      date = time.to_date
+      week = Date.commercial(date.year, date.cweek)
+      week_columns << week
+      time += 7*24*60*60
+    end
+    week_columns.each do |column|
+      data_by_week[column] = 0
+      categories.each do |c|
+        category_data_by_week[c['name']][column] = 0
+      end
+      category_data_by_week['Unknown'][column] = 0
+    end
+
     checkins.each do |c|
       if c.venue.nil? || c.venue.primary_category.nil?
         top = category = "Unknown"
@@ -41,9 +59,14 @@ class FoursquareController < ApplicationController
       category_data[top] += 1
       detailed_category_data[top][category] += 1
 
-      week = c.created_at.strftime("%Y-%W")
-      data_by_week[week] += 1
-      category_data_by_week[top][week] += 1
+      date = c.created_at.to_date
+      week = Date.commercial(date.year, date.cweek)
+      if week_columns.include?(week)
+        data_by_week[week] += 1
+        category_data_by_week[top][week] += 1
+      else
+        Rails.logger.info(c.inspect)
+      end
     end
 
     category_data = category_data.sort_by {|k,v| -v}
@@ -58,10 +81,11 @@ class FoursquareController < ApplicationController
       @data['category_detailed'][x] = y.to_a
     end
 
-    @data['all_by_week'] = data_by_week.to_a
+    @data['week'] = week_columns.to_a
+    @data['all_by_week'] = data_by_week.values
     @data['category_by_week'] = Hash.new
     category_data_by_week.each do |x,y|
-      @data['category_by_week'][x] = y.to_a
+      @data['category_by_week'][x] = y.values
     end
   end
   
