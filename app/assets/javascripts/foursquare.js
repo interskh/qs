@@ -9,6 +9,7 @@ $(document).ready(function() {
 });
 
 function drawFirstLevel() {
+  $('#back a').addClass('disabled');
   chart00 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_pie",
@@ -126,6 +127,7 @@ function drawFirstLevel() {
 }
 
 function drawSecondLevel(name) {
+  $('#back a').removeClass('disabled');
   chart00.destroy();
   chart01.destroy();
   chart02.destroy();
