@@ -83,7 +83,7 @@ function drawFirstLevel() {
     }
     i++;
   }
-  chart01 = new Highcharts.Chart( {
+  chart02 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_monthly_trend",
       type: "column",
