@@ -35,7 +35,7 @@ class FoursquareController < ApplicationController
     time = checkins.last.created_at
     while (time <=> last_time) == -1 do
       date = time.to_date
-      week = Date.commercial(date.year, date.cweek)
+      week = Date.commercial(date.year, date.cweek).to_time.to_i*1000
       week_columns << week
       time += 7*24*60*60
     end
@@ -60,7 +60,7 @@ class FoursquareController < ApplicationController
       detailed_category_data[top][category] += 1
 
       date = c.created_at.to_date
-      week = Date.commercial(date.year, date.cweek)
+      week = Date.commercial(date.year, date.cweek).to_time.to_i*1000
       if week_columns.include?(week)
         data_by_week[week] += 1
         category_data_by_week[top][week] += 1
@@ -82,10 +82,10 @@ class FoursquareController < ApplicationController
     end
 
     @data['week'] = week_columns.to_a
-    @data['all_by_week'] = data_by_week.values
+    @data['all_by_week'] = data_by_week.to_a
     @data['category_by_week'] = Hash.new
     category_data_by_week.each do |x,y|
-      @data['category_by_week'][x] = y.values
+      @data['category_by_week'][x] = y.to_a
     end
   end
   

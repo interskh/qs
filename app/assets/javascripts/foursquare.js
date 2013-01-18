@@ -3,6 +3,7 @@ $(document).ready(function() {
   drawFirstLevel();
   $('#back a').click(function(){
     chart10.destroy();
+    chart11.destroy();
     drawFirstLevel();                
   });
 });
@@ -41,14 +42,41 @@ function drawFirstLevel() {
     },
     series: [{
       type: 'pie',
-      name: 'Browser share',
+      name: 'Checkins',
       data: data['category_all']
+    }]
+  });
+
+  chart01 = new Highcharts.Chart( {
+    chart: {
+      renderTo: "foursquare_trend",
+      type: "column",
+    },
+    title: {
+      text: "Checkins by Week"
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0
+      }
+    },
+    xAxis: {
+      type: "datetime"
+    },
+    yAxis: {
+      title: "Checkins"
+    },
+    series: [{
+      name: "Checkins",
+      data: data['all_by_week']
     }]
   });
 }
 
 function drawSecondLevel(name) {
   chart00.destroy();
+  chart01.destroy();
   chart10 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_pie",
@@ -75,8 +103,34 @@ function drawSecondLevel(name) {
     },
     series: [{
       type: 'pie',
-      name: 'Browser share',
+      name: 'Checkins',
       data: data['category_detailed'][name]
+    }]
+  });
+
+  chart11 = new Highcharts.Chart( {
+    chart: {
+      renderTo: "foursquare_trend",
+      type: "column",
+    },
+    title: {
+      text: "Checkins by Week"
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0
+      }
+    },
+    xAxis: {
+      type: "datetime"
+    },
+    yAxis: {
+      title: "Checkins"
+    },
+    series: [{
+      name: "Checkins",
+      data: data['category_by_week'][name]
     }]
   });
 }
