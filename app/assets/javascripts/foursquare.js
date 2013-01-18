@@ -1,4 +1,4 @@
-var chart00, chart01, chart10, chart11;
+var chart00, chart01, chart02, chart10, chart11;
 $(document).ready(function() {
   drawFirstLevel();
   $('#back a').click(function(){
@@ -164,7 +164,7 @@ function drawSecondLevel(name) {
 
   chart11 = new Highcharts.Chart( {
     chart: {
-      renderTo: "foursquare_trend",
+      renderTo: "foursquare_weekly_trend",
       type: "column",
     },
     title: {
