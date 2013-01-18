@@ -49,7 +49,7 @@ function drawFirstLevel() {
 
   chart01 = new Highcharts.Chart( {
     chart: {
-      renderTo: "foursquare_trend",
+      renderTo: "foursquare_weekly_trend",
       type: "column",
     },
     title: {
@@ -68,8 +68,59 @@ function drawFirstLevel() {
       title: "Checkins"
     },
     series: [{
-      name: "Checkins",
+      name: "Total",
       data: data['all_by_week']
+    }]
+  });
+
+  var i = 0;
+  var top_cats = new Object();
+  for (var k in data["category_all"]) {
+    top_cats[i] = data["category_all"][k][0];
+    if (i==3) {
+      break;
+    }
+    i++;
+  }
+  chart01 = new Highcharts.Chart( {
+    chart: {
+      renderTo: "foursquare_monthly_trend",
+      type: "column",
+    },
+    title: {
+      text: "Checkins by Month"
+    },
+    plotOptions: {
+      column: {
+        pointPadding: 0.2,
+        borderWidth: 0
+      }
+    },
+    xAxis: {
+      type: "datetime"
+    },
+    yAxis: {
+      title: "Checkins"
+    },
+    series: [{
+      name: "Total",
+      data: data['all_by_month']
+    },
+    {
+      name: top_cats[0],
+      data: data['category_by_month'][top_cats[0]]
+    },
+    {
+      name: top_cats[1],
+      data: data['category_by_month'][top_cats[1]]
+    },
+    {
+      name: top_cats[2],
+      data: data['category_by_month'][top_cats[2]]
+    },
+    {
+      name: top_cats[3],
+      data: data['category_by_month'][top_cats[3]]
     }]
   });
 }
@@ -77,6 +128,7 @@ function drawFirstLevel() {
 function drawSecondLevel(name) {
   chart00.destroy();
   chart01.destroy();
+  chart02.destroy();
   chart10 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_pie",
