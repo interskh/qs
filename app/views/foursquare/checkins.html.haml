@@ -4,6 +4,13 @@
 
 = sitemap "#{current_user.name}'s All Checkins"
 
+%ul.nav.nav-tabs
+  %li.active
+    = link_to "All", "#", :id=>"all-btn"
+  %li
+    = link_to "Last Six Month", "#", :id=>"last-six-month-btn"
+  %li
+    = link_to "Current Year", "#", :id=>"current-year-btn"
 #back
   = link_to "Back", "#", :class=>"btn"
 #foursquare_pie
