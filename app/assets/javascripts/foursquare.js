@@ -1,16 +1,22 @@
-var chart00, chart01, chart02, chart10, chart11;
+var chart0, chart1, chart2;
 $(document).ready(function() {
   drawFirstLevel();
+
   $('#back a').click(function(){
-    chart10.destroy();
-    chart11.destroy();
+    chart0.destroy();
+    chart1.destroy();
     drawFirstLevel();                
+  });
+
+  $('#timeframe-nav a').click(function(){
+    $('#timeframe-nav li.active').removeClass('active');
+    $(this).parent().addClass('active');
   });
 });
 
 function drawFirstLevel() {
   $('#back a').addClass('disabled');
-  chart00 = new Highcharts.Chart( {
+  chart0 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_pie",
       plotBackgroundColor: null,
@@ -48,7 +54,7 @@ function drawFirstLevel() {
     }]
   });
 
-  chart01 = new Highcharts.Chart( {
+  chart1 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_weekly_trend",
       type: "column",
@@ -83,7 +89,7 @@ function drawFirstLevel() {
     }
     i++;
   }
-  chart02 = new Highcharts.Chart( {
+  chart2 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_monthly_trend",
       type: "column",
@@ -128,10 +134,10 @@ function drawFirstLevel() {
 
 function drawSecondLevel(name) {
   $('#back a').removeClass('disabled');
-  chart00.destroy();
-  chart01.destroy();
-  chart02.destroy();
-  chart10 = new Highcharts.Chart( {
+  chart0.destroy();
+  chart1.destroy();
+  chart2.destroy();
+  chart0 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_pie",
       plotBackgroundColor: null,
@@ -162,7 +168,7 @@ function drawSecondLevel(name) {
     }]
   });
 
-  chart11 = new Highcharts.Chart( {
+  chart1 = new Highcharts.Chart( {
     chart: {
       renderTo: "foursquare_weekly_trend",
       type: "column",
