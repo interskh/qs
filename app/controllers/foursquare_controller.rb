@@ -12,114 +12,114 @@ class FoursquareController < ApplicationController
   end
   
   def checkins
-    #checkins = current_user.all_checkins
+    checkins = current_user.all_checkins
 
-    #categories = foursquare.venues.categories
-    #category_parents = Hash.new
-    #category_tops = Hash.new
-    #categories.each do |c|
-      #category_tops[c['name']] = c['name']
-      #c['categories'].each do |cc|
-        #category_parents[cc['name']] = c['name']
-        #_category_parent_n_top(category_parents, category_tops, c['name'], cc)
-      #end
-    #end
+    categories = foursquare.venues.categories
+    category_parents = Hash.new
+    category_tops = Hash.new
+    categories.each do |c|
+      category_tops[c['name']] = c['name']
+      c['categories'].each do |cc|
+        category_parents[cc['name']] = c['name']
+        _category_parent_n_top(category_parents, category_tops, c['name'], cc)
+      end
+    end
 
-    #category_data = Hash.new(0)
-    #detailed_category_data = Hash.new{|v,k| v[k] = Hash.new(0)}
+    category_data = Hash.new(0)
+    detailed_category_data = Hash.new{|v,k| v[k] = Hash.new(0)}
 
-    #week_columns = Array.new
-    #data_by_week = Hash.new(0)
-    #category_data_by_week = Hash.new{|v,k| v[k] = Hash.new(0)}
-    #last_time = checkins.first.created_at + 7*24*60*60
-    #time = checkins.last.created_at
-    #while (time <=> last_time) == -1 do
-      #date = time.to_date
-      #week = Date.commercial(date.year, date.cweek).to_time.to_i*1000
-      #week_columns << week
-      #time += 7*24*60*60
-    #end
-    #week_columns.each do |column|
-      #data_by_week[column] = 0
-      #categories.each do |c|
-        #category_data_by_week[c['name']][column] = 0
-      #end
-      #category_data_by_week['Unknown'][column] = 0
-    #end
+    week_columns = Array.new
+    data_by_week = Hash.new(0)
+    category_data_by_week = Hash.new{|v,k| v[k] = Hash.new(0)}
+    last_time = checkins.first.created_at + 7*24*60*60
+    time = checkins.last.created_at
+    while (time <=> last_time) == -1 do
+      date = time.to_date
+      week = Date.commercial(date.year, date.cweek).to_time.to_i*1000
+      week_columns << week
+      time += 7*24*60*60
+    end
+    week_columns.each do |column|
+      data_by_week[column] = 0
+      categories.each do |c|
+        category_data_by_week[c['name']][column] = 0
+      end
+      category_data_by_week['Unknown'][column] = 0
+    end
 
-    #month_columns = Array.new
-    #data_by_month = Hash.new(0)
-    #category_data_by_month = Hash.new{|v,k| v[k] = Hash.new(0)}
-    #last_date = (checkins.first.created_at).to_date
-    #date = checkins.last.created_at.to_date
-    #while date < last_date do
-      #month = date.at_beginning_of_month.to_time.to_i*1000
-      #month_columns << month
-      #date = date.next_month
-    #end
-    #month_columns.each do |column|
-      #data_by_month[column] = 0
-      #categories.each do |c|
-        #category_data_by_month[c['name']][column] = 0
-      #end
-      #category_data_by_month['Unknown'][column] = 0
-    #end
+    month_columns = Array.new
+    data_by_month = Hash.new(0)
+    category_data_by_month = Hash.new{|v,k| v[k] = Hash.new(0)}
+    last_date = (checkins.first.created_at).to_date
+    date = checkins.last.created_at.to_date
+    while date < last_date do
+      month = date.at_beginning_of_month.to_time.to_i*1000
+      month_columns << month
+      date = date.next_month
+    end
+    month_columns.each do |column|
+      data_by_month[column] = 0
+      categories.each do |c|
+        category_data_by_month[c['name']][column] = 0
+      end
+      category_data_by_month['Unknown'][column] = 0
+    end
 
-    #checkins.each do |c|
-      #if c.venue.nil? || c.venue.primary_category.nil?
-        #top = category = "Unknown"
-      #elsif category_tops[c.venue.primary_category.name].nil?
-        #top = category = c.venue.primary_category.name
-      #else
-        #category = c.venue.primary_category.name
-        #top = category_tops[category]
-      #end
-      #category_data[top] += 1
-      #detailed_category_data[top][category] += 1
+    checkins.each do |c|
+      if c.venue.nil? || c.venue.primary_category.nil?
+        top = category = "Unknown"
+      elsif category_tops[c.venue.primary_category.name].nil?
+        top = category = c.venue.primary_category.name
+      else
+        category = c.venue.primary_category.name
+        top = category_tops[category]
+      end
+      category_data[top] += 1
+      detailed_category_data[top][category] += 1
 
-      #date = c.created_at.to_date
-      #week = Date.commercial(date.year, date.cweek).to_time.to_i*1000
-      #if week_columns.include?(week)
-        #data_by_week[week] += 1
-        #category_data_by_week[top][week] += 1
-      #else
-        #Rails.logger.info(c.inspect)
-      #end
+      date = c.created_at.to_date
+      week = Date.commercial(date.year, date.cweek).to_time.to_i*1000
+      if week_columns.include?(week)
+        data_by_week[week] += 1
+        category_data_by_week[top][week] += 1
+      else
+        Rails.logger.info(c.inspect)
+      end
 
-      #month = date.at_beginning_of_month.to_time.to_i*1000
-      #if month_columns.include?(month)
-        #data_by_month[month] += 1
-        #category_data_by_month[top][month] += 1
-      #else
-        #Rails.logger.info(c.inspect)
-      #end
-    #end
+      month = date.at_beginning_of_month.to_time.to_i*1000
+      if month_columns.include?(month)
+        data_by_month[month] += 1
+        category_data_by_month[top][month] += 1
+      else
+        Rails.logger.info(c.inspect)
+      end
+    end
 
-    #category_data = category_data.sort_by {|k,v| -v}
-    #detailed_category_data.each do |c, cc|
-      #detailed_category_data[c] = cc.sort_by {|k,v| -v}
-    #end
+    category_data = category_data.sort_by {|k,v| -v}
+    detailed_category_data.each do |c, cc|
+      detailed_category_data[c] = cc.sort_by {|k,v| -v}
+    end
 
-    #@data = Hash.new
-    #@data['category_all'] = category_data.to_a
-    #@data['category_detailed'] = Hash.new
-    #detailed_category_data.each do |x,y|
-      #@data['category_detailed'][x] = y.to_a
-    #end
+    @data = Hash.new
+    @data['category_all'] = category_data.to_a
+    @data['category_detailed'] = Hash.new
+    detailed_category_data.each do |x,y|
+      @data['category_detailed'][x] = y.to_a
+    end
 
-    #@data['week'] = week_columns.to_a
-    #@data['all_by_week'] = data_by_week.to_a
-    #@data['category_by_week'] = Hash.new
-    #category_data_by_week.each do |x,y|
-      #@data['category_by_week'][x] = y.to_a
-    #end
+    @data['week'] = week_columns.to_a
+    @data['all_by_week'] = data_by_week.to_a
+    @data['category_by_week'] = Hash.new
+    category_data_by_week.each do |x,y|
+      @data['category_by_week'][x] = y.to_a
+    end
 
-    #@data['month'] = month_columns.to_a
-    #@data['all_by_month'] = data_by_month.to_a
-    #@data['category_by_month'] = Hash.new
-    #category_data_by_month.each do |x,y|
-      #@data['category_by_month'][x] = y.to_a
-    #end
+    @data['month'] = month_columns.to_a
+    @data['all_by_month'] = data_by_month.to_a
+    @data['category_by_month'] = Hash.new
+    category_data_by_month.each do |x,y|
+      @data['category_by_month'][x] = y.to_a
+    end
   end
   
   def friends
