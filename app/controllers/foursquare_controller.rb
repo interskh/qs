@@ -12,7 +12,13 @@ class FoursquareController < ApplicationController
   end
   
   def checkins
-    checkins = current_user.all_checkins
+    if params[:all]
+      checkins = current_user.all_checkins
+      @all = true
+    else
+      checkins = current_user.some_checkins 250
+      @all = false
+    end
 
     categories = foursquare.venues.categories
     category_parents = Hash.new

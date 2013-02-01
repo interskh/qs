@@ -5,12 +5,18 @@
 = sitemap "#{current_user.name}'s All Checkins"
 
 %ul.nav.nav-tabs#timeframe-nav
-  %li.active
-    = link_to "All", "#", :id=>"all-btn"
-  %li
-    = link_to "Last Six Month", "#", :id=>"last-six-month-btn"
-  %li
-    = link_to "Current Year", "#", :id=>"current-year-btn"
+  - unless @all
+    %li.active
+      = link_to "Current", "?", :id=>"current-year-btn"
+  - else
+    %li
+      = link_to "Current", "?", :id=>"current-year-btn"
+  - if @all
+    %li.active
+      = link_to "All", "?all=true", :id=>"all-btn"
+  - else
+    %li
+      = link_to "All", "?all=true", :id=>"all-btn"
 #back
   = link_to "Back", "#", :class=>"btn"
 #foursquare_pie

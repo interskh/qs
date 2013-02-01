@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/interskh/quimby.git
-  revision: e68002de36aed98b915fc09fde5ef8b614f8d89c
+  revision: b95535cbd08251ff87a3a4bd7420dac07fca4df3
   specs:
     quimby (0.5.5)
       hashie

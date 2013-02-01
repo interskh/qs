@@ -9,8 +9,8 @@ $(document).ready(function() {
   });
 
   $('#timeframe-nav a').click(function(){
-    $('#timeframe-nav li.active').removeClass('active');
-    $(this).parent().addClass('active');
+//    $('#timeframe-nav li.active').removeClass('active');
+//    $(this).parent().addClass('active');
   });
 });
 
