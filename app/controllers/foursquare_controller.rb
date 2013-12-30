@@ -15,8 +15,27 @@ class FoursquareController < ApplicationController
     if params[:all]
       checkins = current_user.all_checkins
       @all = true
+      @current_year = false
+    elsif params[:current_year]
+      checkins = []
+      offset = 0
+      parts = current_user.checkins(:limit => 250, :offset => offset)
+      current_year = parts.first.created_at.to_date.year
+      while parts.last.created_at.to_date.year == current_year do
+        checkins += parts
+        offset += 250
+        parts = current_user.checkins(:limit => 250, :offset => offset)
+      end
+      parts.each do |c|
+        if c.created_at.to_date.year == current_year
+          checkins.append c
+        end
+      end
+      @current_year = true
+      @all = false
     else
       checkins = current_user.some_checkins 250
+      @current_year = false
       @all = false
     end
 

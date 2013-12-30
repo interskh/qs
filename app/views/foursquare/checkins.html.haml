@@ -5,12 +5,18 @@
 = sitemap "#{current_user.name}'s All Checkins"
 
 %ul.nav.nav-tabs#timeframe-nav
-  - unless @all
+  - unless @all or @current_year
     %li.active
-      = link_to "Current", "?", :id=>"current-year-btn"
+      = link_to "Latest", "?", :id=>"latest-btn"
   - else
     %li
-      = link_to "Current", "?", :id=>"current-year-btn"
+      = link_to "Latest", "?", :id=>"latest-btn"
+  - if @current_year
+    %li.active
+      = link_to "Current Year", "?current_year=true", :id=>"current-year-btn"
+  - else
+    %li
+      = link_to "Current Year", "?current_year=true", :id=>"current-year-btn"
   - if @all
     %li.active
       = link_to "All", "?all=true", :id=>"all-btn"
