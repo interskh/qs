@@ -35,7 +35,7 @@ function drawFirstLevel() {
             color: '#000000',
             connectorColor: '#000000',
             formatter: function() {
-                return '<b>'+ this.point.name +'</b>'+ this.percentage.toFixed(1) +' %';
+                return '<b>'+ this.point.name +'</b>'+ this.point.y; //percentage.toFixed(1) +' %';
             }
         },
         point: {
@@ -51,6 +51,37 @@ function drawFirstLevel() {
       type: 'pie',
       name: 'Checkins',
       data: data['category_all']
+    }]
+  });
+
+  chart0 = new Highcharts.Chart( {
+    chart: {
+      renderTo: "foursquare_pie_all_category",
+      plotBackgroundColor: null,
+      plotBorderWidth: null,
+      plotShadow: true
+    },
+    title: {
+      text: "Checkins by All Category"
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+            enabled: true,
+            color: '#000000',
+            connectorColor: '#000000',
+            formatter: function() {
+                return '<b>'+ this.point.name +'</b>'+ this.point.y; //this.percentage.toFixed(1) +' %';
+            }
+        }
+      }
+    },
+    series: [{
+      type: 'pie',
+      name: 'Checkins',
+      data: data['category_all_detailed']
     }]
   });
 

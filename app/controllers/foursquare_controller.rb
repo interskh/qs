@@ -52,6 +52,7 @@ class FoursquareController < ApplicationController
 
     category_data = Hash.new(0)
     detailed_category_data = Hash.new{|v,k| v[k] = Hash.new(0)}
+    all_category_data = Hash.new(0)
 
     week_columns = Array.new
     data_by_week = Hash.new(0)
@@ -90,7 +91,16 @@ class FoursquareController < ApplicationController
       category_data_by_month['Unknown'][column] = 0
     end
 
+    venues = {}
     checkins.each do |c|
+      unless c.venue.nil?
+        if venues.has_key?(c.venue.id)
+          venues[c.venue.id].append(c.venue)
+        else
+          venues[c.venue.id] = [c.venue]
+        end
+      end
+
       if c.venue.nil? || c.venue.primary_category.nil?
         top = category = "Unknown"
       elsif category_tops[c.venue.primary_category.name].nil?
@@ -101,6 +111,7 @@ class FoursquareController < ApplicationController
       end
       category_data[top] += 1
       detailed_category_data[top][category] += 1
+      all_category_data[category] += 1
 
       date = c.created_at.to_date
       week = Date.commercial(date.year, date.cweek).to_time.to_i*1000
@@ -120,13 +131,22 @@ class FoursquareController < ApplicationController
       end
     end
 
+    # to get top venues
+    sorted_venues = venues.sort_by {|k,v| v.size}
+    sorted_venues.last(10).each do |v|
+      Rails.logger.info(v[1].size)
+      Rails.logger.info(v[1][0].name)
+    end
+
     category_data = category_data.sort_by {|k,v| -v}
+    all_category_data = all_category_data.sort_by {|k,v| -v}
     detailed_category_data.each do |c, cc|
       detailed_category_data[c] = cc.sort_by {|k,v| -v}
     end
 
     @data = Hash.new
     @data['category_all'] = category_data.to_a
+    @data['category_all_detailed'] = all_category_data.to_a
     @data['category_detailed'] = Hash.new
     detailed_category_data.each do |x,y|
       @data['category_detailed'][x] = y.to_a
